@@ -3,23 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CineMatch AI | Semantic Movie Recommender</title>
+  <title>CineMatch — Semantic Film Discovery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #0b0f17;
-      --bg-card: #151c28;
-      --bg-card-hover: #1e283a;
-      --accent-glow: #6366f1;
-      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --radius-lg: 16px;
+      --bg: #090a0d;
+      --surface: #111318;
+      --surface-elevated: #161922;
+      --surface-hover: #1c202c;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-tertiary: #6b7280;
+      --accent: #e5e7eb;
+      --accent-bg: #1f2430;
+      --match-bg: rgba(52, 211, 153, 0.08);
+      --match-border: rgba(52, 211, 153, 0.25);
+      --match-text: #34d399;
+      --radius-sm: 6px;
       --radius-md: 10px;
+      --radius-lg: 14px;
     }
 
     * {
@@ -29,39 +36,28 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-      z-index: -1;
-      pointer-events: none;
-    }
-
+    /* Header */
     header {
-      padding: 24px 40px;
+      padding: 18px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
-      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(11, 15, 23, 0.75);
+      z-index: 40;
+      background: rgba(9, 10, 13, 0.85);
+      backdrop-filter: blur(16px);
     }
 
     .brand {
@@ -72,128 +68,172 @@
       color: inherit;
     }
 
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-md);
-      background: var(--accent-gradient);
+    .brand-logo {
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-sm);
+      background: var(--surface-elevated);
+      color: var(--text-primary);
     }
 
-    .brand h1 {
-      font-size: 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    .brand-logo svg {
+      width: 15px;
+      height: 15px;
     }
 
-    .brand h1 span {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
     }
 
+    .brand-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      border-left: 1px solid var(--border);
+      padding-left: 12px;
+      margin-left: 2px;
+    }
+
+    /* Hero / Search Section */
     .hero {
       text-align: center;
-      padding: 60px 20px 40px;
-      max-width: 800px;
+      padding: 72px 24px 44px;
+      max-width: 760px;
       margin: 0 auto;
     }
 
-    .hero h2 {
-      font-size: 2.75rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.2;
-      margin-bottom: 16px;
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      color: #fff;
     }
 
     .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-size: 1.02rem;
       margin-bottom: 32px;
+      font-weight: 400;
     }
 
-    .search-wrapper {
+    /* Search Input Container */
+    .search-container {
       position: relative;
-      max-width: 650px;
+      max-width: 620px;
       margin: 0 auto 20px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .search-icon svg {
+      width: 18px;
+      height: 18px;
     }
 
     .search-input {
       width: 100%;
-      padding: 18px 140px 18px 24px;
-      font-size: 1.05rem;
+      padding: 15px 115px 15px 48px;
+      font-size: 0.95rem;
       font-family: inherit;
-      color: #fff;
-      background: rgba(21, 28, 40, 0.85);
-      border: 1px solid var(--border-color);
-      border-radius: 50px;
+      color: var(--text-primary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       outline: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-tertiary);
     }
 
     .search-input:focus {
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25), 0 10px 30px rgba(0, 0, 0, 0.4);
+      border-color: var(--border-hover);
+      box-shadow: 0 0 0 1px var(--border-hover);
     }
 
     .search-btn {
       position: absolute;
-      right: 8px;
+      right: 7px;
       top: 50%;
       transform: translateY(-50%);
-      padding: 12px 28px;
+      padding: 8px 18px;
       font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      background: var(--accent-gradient);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #0b0c10;
+      background: #f3f4f6;
       border: none;
-      border-radius: 50px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: background-color 0.15s ease;
     }
 
     .search-btn:hover {
-      transform: translateY(-50%) scale(1.02);
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      background: #ffffff;
     }
 
+    /* Search Preset Chips */
     .chips {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     .chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
-      padding: 6px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 5px 14px;
       border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
 
     .chip:hover {
-      background: rgba(99, 102, 241, 0.15);
-      color: #fff;
-      border-color: var(--accent-glow);
+      background: var(--surface-elevated);
+      color: var(--text-primary);
+      border-color: var(--border-hover);
     }
 
+    /* Main Catalog */
     main {
       flex: 1;
-      max-width: 1300px;
+      max-width: 1360px;
       width: 100%;
       margin: 0 auto;
-      padding: 20px 30px 60px;
+      padding: 24px 48px 80px;
     }
 
     .section-header {
@@ -201,51 +241,72 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
     }
 
     .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .catalog-count {
+      color: var(--text-tertiary);
+      font-weight: 400;
     }
 
     .reset-btn {
       background: transparent;
-      color: var(--accent-glow);
-      border: none;
-      font-size: 0.9rem;
-      font-weight: 600;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
       display: none;
+      transition: all 0.15s ease;
     }
 
+    .reset-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
+    /* Grid */
     .movie-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
     }
 
+    /* Movie Card */
     .movie-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+      transition: border-color 0.2s ease, transform 0.2s ease;
       position: relative;
     }
 
     .movie-card:hover {
-      transform: translateY(-8px);
-      background: var(--bg-card-hover);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.3);
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
     }
 
     .poster-container {
       position: relative;
       width: 100%;
-      height: 380px;
-      background: #06090e;
+      height: 340px;
+      background: #0d0f14;
       overflow: hidden;
     }
 
@@ -253,48 +314,52 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform 0.3s ease;
     }
 
     .movie-card:hover .movie-poster {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
     .score-badge {
       position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(16, 185, 129, 0.9);
+      top: 12px;
+      right: 12px;
+      background: rgba(17, 19, 24, 0.88);
       backdrop-filter: blur(8px);
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 50px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--match-border);
+      color: var(--match-text);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-variant-numeric: tabular-nums;
     }
 
     .movie-info {
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
     .movie-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: var(--text-primary);
     }
 
     .movie-desc {
-      color: var(--text-muted);
-      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
       line-height: 1.5;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
@@ -304,38 +369,49 @@
 
     .similar-btn {
       width: 100%;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: #fff;
-      font-size: 0.88rem;
-      font-weight: 600;
+      padding: 8px 12px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
     }
 
-    .similar-btn:hover {
-      background: var(--accent-gradient);
-      border-color: transparent;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    .similar-btn svg {
+      width: 13px;
+      height: 13px;
+      transition: transform 0.15s ease;
     }
 
+    .similar-btn:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    .similar-btn:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 100;
-      padding: 20px;
-      animation: fadeIn 0.2s ease-out;
+      padding: 24px;
+      animation: fadeIn 0.15s ease-out;
     }
 
     .modal-overlay.active {
@@ -343,45 +419,70 @@
     }
 
     .modal-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: var(--surface);
+      border: 1px solid var(--border-hover);
       border-radius: var(--radius-lg);
-      max-width: 900px;
+      max-width: 860px;
       width: 100%;
-      padding: 32px;
+      padding: 28px;
       position: relative;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
 
     .modal-close {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: #fff;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      top: 20px;
+      right: 20px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+
+    .modal-close svg {
+      width: 14px;
+      height: 14px;
     }
 
     .modal-header {
-      margin-bottom: 24px;
+      margin-bottom: 22px;
+    }
+
+    .modal-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      margin-bottom: 4px;
     }
 
     .modal-header h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #fff;
     }
 
     .modal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
     }
 
+    /* Loading & Status States */
     .loading-state {
       text-align: center;
       padding: 80px 20px;
@@ -389,13 +490,18 @@
     }
 
     .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--accent-glow);
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--text-primary);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    .status-text {
+      color: var(--text-tertiary);
+      font-size: 0.88rem;
     }
 
     @keyframes spin {
@@ -406,54 +512,90 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    @media (max-width: 768px) {
+      header { padding: 16px 20px; }
+      main { padding: 20px; }
+      .hero { padding: 48px 16px 32px; }
+      .hero h1 { font-size: 1.85rem; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Minimal Header -->
   <header>
     <a href="#" class="brand">
-      <div class="brand-icon">🎬</div>
-      <h1>CineMatch <span>AI</span></h1>
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+          <line x1="7" y1="2" x2="7" y2="22"></line>
+          <line x1="17" y1="2" x2="17" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+        </svg>
+      </div>
+      <span class="brand-title">CineMatch</span>
+      <span class="brand-tag">Vector Discovery</span>
     </a>
   </header>
 
+  <!-- Editorial Search Section -->
   <section class="hero">
-    <h2>Find Movies by Concept, Plot, or Vibe</h2>
-    <p>Powered by vector semantic search and Google Gemini embeddings.</p>
+    <span class="hero-eyebrow">Natural Language Discovery</span>
+    <h1>Semantic Film Search</h1>
+    <p>Search movie plots, emotional themes, and narrative concepts using dense vector embeddings.</p>
 
-    <div class="search-wrapper">
+    <div class="search-container">
+      <div class="search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
       <input 
         type="text" 
         id="searchInput" 
         class="search-input" 
-        placeholder="e.g. Astronaut stranded in deep space, fighting for survival..." 
+        placeholder="Search by theme (e.g., astronauts fighting for survival in deep space)..." 
       />
       <button id="searchBtn" class="search-btn">Search</button>
     </div>
 
+    <!-- Clean, Non-Emoji Filter Chips -->
     <div class="chips">
-      <span class="chip" onclick="handleChipClick('Astronauts in space')">🚀 Space Mission</span>
-      <span class="chip" onclick="handleChipClick('Mind-bending dreams and simulation')">🌀 Mind Bending</span>
-      <span class="chip" onclick="handleChipClick('Relentless assassin hunting for revenge')">💥 Hitman Revenge</span>
-      <span class="chip" onclick="handleChipClick('Dark gritty detective psychological thriller')">🕵️ Serial Killer</span>
+      <button class="chip" onclick="handleChipClick('Astronauts stranded in deep space')">Space Exploration</button>
+      <button class="chip" onclick="handleChipClick('Mind-bending dreams and simulated realities')">Surrealist Sci-Fi</button>
+      <button class="chip" onclick="handleChipClick('Relentless assassin hunting for vengeance')">Action & Revenge</button>
+      <button class="chip" onclick="handleChipClick('Dark gritty detective psychological thriller')">Neo-Noir Crime</button>
     </div>
   </section>
 
+  <!-- Movies Catalog -->
   <main>
     <div class="section-header">
-      <h3 id="sectionTitle" class="section-title">All Movies (25)</h3>
-      <button id="resetBtn" class="reset-btn" onclick="loadAllMovies()">✕ Show All Movies</button>
+      <h2 id="sectionTitle" class="section-title">
+        <span>Catalog</span>
+        <span id="catalogCount" class="catalog-count">(25)</span>
+      </h2>
+      <button id="resetBtn" class="reset-btn" onclick="loadAllMovies()">Show Full Catalog</button>
     </div>
 
     <div id="movieGrid" class="movie-grid">
     </div>
   </main>
 
+  <!-- Recommendation Modal -->
   <div id="similarModal" class="modal-overlay">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div class="modal-header">
-        <h3 id="modalTitle">Movies Like Interstellar</h3>
+        <div class="modal-eyebrow">Recommendations</div>
+        <h3 id="modalTitle">Similar Titles</h3>
       </div>
       <div id="modalGrid" class="modal-grid">
       </div>
@@ -467,6 +609,7 @@
     const searchInput = document.getElementById("searchInput");
     const searchBtn = document.getElementById("searchBtn");
     const sectionTitle = document.getElementById("sectionTitle");
+    const catalogCount = document.getElementById("catalogCount");
     const resetBtn = document.getElementById("resetBtn");
     const similarModal = document.getElementById("similarModal");
     const modalTitle = document.getElementById("modalTitle");
@@ -475,7 +618,7 @@
     async function loadAllMovies() {
       showLoading(movieGrid);
       resetBtn.style.display = "none";
-      sectionTitle.textContent = "All Movies";
+      sectionTitle.firstElementChild.textContent = "Catalog";
 
       try {
         const response = await fetch(`${API_BASE_URL}/`);
@@ -483,9 +626,9 @@
         
         const data = await response.json();
         renderMovies(data.movies, false);
-        sectionTitle.textContent = `All Movies (${data.movies.length})`;
+        catalogCount.textContent = `(${data.movies.length})`;
       } catch (err) {
-        showError(movieGrid, "Make sure your FastAPI server is running on port 8080 (`uvicorn main:app --reload --port 8080`)");
+        showError(movieGrid, "FastAPI server unavailable. Ensure the backend is running on port 8080.");
       }
     }
 
@@ -495,7 +638,8 @@
 
       showLoading(movieGrid);
       resetBtn.style.display = "block";
-      sectionTitle.textContent = `Search results for "${query}"`;
+      sectionTitle.firstElementChild.textContent = `Results for "${query}"`;
+      catalogCount.textContent = "";
 
       try {
         const response = await fetch(`${API_BASE_URL}/search?query=${encodeURIComponent(query)}`);
@@ -503,14 +647,15 @@
 
         const data = await response.json();
         renderMovies(data.movies, true);
+        catalogCount.textContent = `(${data.movies.length})`;
       } catch (err) {
-        showError(movieGrid, "Search error. Please verify the backend is running.");
+        showError(movieGrid, "Search query failed. Please verify API status.");
       }
     }
 
     async function openSimilarModal(movieTitle) {
       similarModal.classList.add("active");
-      modalTitle.textContent = `More Like "${movieTitle}"`;
+      modalTitle.textContent = `Titles similar to "${movieTitle}"`;
       showLoading(modalGrid);
 
       try {
@@ -520,7 +665,7 @@
         const data = await response.json();
         renderModalMovies(data.movies);
       } catch (err) {
-        showError(modalGrid, `Could not find recommendations for "${movieTitle}"`);
+        showError(modalGrid, `No similarity vectors found for "${movieTitle}"`);
       }
     }
 
@@ -537,14 +682,18 @@
 
     function renderMovies(movies, showScore = false) {
       if (!movies || movies.length === 0) {
-        movieGrid.innerHTML = `<div class="loading-state"><p>No movies found matching that query.</p></div>`;
+        movieGrid.innerHTML = `
+          <div class="loading-state">
+            <p class="status-text">No matching records found in vector catalog.</p>
+          </div>
+        `;
         return;
       }
 
       movieGrid.innerHTML = movies.map(movie => {
         const scorePercent = movie.similarity_score ? Math.round(movie.similarity_score * 100) : null;
         const scoreBadge = scorePercent 
-          ? `<span class="score-badge">${scorePercent}% Match</span>` 
+          ? `<span class="score-badge">${scorePercent}% match</span>` 
           : "";
 
         return `
@@ -554,10 +703,14 @@
               ${scoreBadge}
             </div>
             <div class="movie-info">
-              <h4 class="movie-title">${movie.title}</h4>
+              <h3 class="movie-title">${movie.title}</h3>
               <p class="movie-desc">${movie.description}</p>
               <button class="similar-btn" onclick="openSimilarModal('${movie.title.replace(/'/g, "\\'")}')">
-                ✨ More Like This
+                <span>Similar Titles</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
               </button>
             </div>
           </div>
@@ -567,7 +720,7 @@
 
     function renderModalMovies(movies) {
       if (!movies || movies.length === 0) {
-        modalGrid.innerHTML = `<p style="color: var(--text-muted);">No similar recommendations available.</p>`;
+        modalGrid.innerHTML = `<p class="status-text">No recommendations available for this record.</p>`;
         return;
       }
 
@@ -575,11 +728,11 @@
         const scorePercent = movie.similarity_score ? Math.round(movie.similarity_score * 100) : 0;
         return `
           <div class="movie-card" style="box-shadow: none;">
-            <div class="poster-container" style="height: 280px;">
+            <div class="poster-container" style="height: 260px;">
               <img src="${movie.imageUrl}" alt="${movie.title}" class="movie-poster">
-              <span class="score-badge">${scorePercent}% Match</span>
+              <span class="score-badge">${scorePercent}% match</span>
             </div>
-            <div class="movie-info" style="padding: 16px;">
+            <div class="movie-info" style="padding: 14px;">
               <h4 class="movie-title">${movie.title}</h4>
               <p class="movie-desc" style="-webkit-line-clamp: 2;">${movie.description}</p>
             </div>
@@ -592,7 +745,7 @@
       element.innerHTML = `
         <div class="loading-state">
           <div class="spinner"></div>
-          <p style="color: var(--text-muted);">Thinking & computing vector similarities...</p>
+          <p class="status-text">Computing vector similarities...</p>
         </div>
       `;
     }
@@ -600,8 +753,8 @@
     function showError(element, message) {
       element.innerHTML = `
         <div class="loading-state">
-          <p style="color: #ef4444; font-weight: 600; margin-bottom: 8px;">⚠️ Connection Error</p>
-          <p style="color: var(--text-muted); font-size: 0.9rem;">${message}</p>
+          <p style="color: #f87171; font-weight: 500; font-size: 0.9rem; margin-bottom: 4px;">Service Disconnected</p>
+          <p class="status-text">${message}</p>
         </div>
       `;
     }
