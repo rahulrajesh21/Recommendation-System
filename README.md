@@ -169,7 +169,6 @@ Application startup complete.
 
 ## 🔒 Security & Best Practices
 
-- **Zero Secret Exposure:** `.env` is explicitly ignored in `.gitignore`. Only `.env.example` with dummy values is committed to git.
 - **Thread-Safe Memory State:** In-memory catalogs are immutable during request handling; similarity scores are returned in dedicated response schemas without mutating underlying catalog objects.
 - **CORS Configured:** Secure origin restrictions configured for local development (`http://localhost:5500`).
 
